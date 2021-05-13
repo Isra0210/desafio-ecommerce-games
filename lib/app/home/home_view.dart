@@ -1,10 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:games/app/cart/cart_view.dart';
+import 'package:games/app/controller/controller.dart';
 import 'package:games/app/home/widget/product_widget.dart';
 import 'package:games/app/product/product_view.dart';
+import 'package:get/get.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends GetView<Controller> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,11 +18,34 @@ class HomeView extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(
-              Icons.shopping_cart,
-              size: 20,
+            icon: Stack(
+              children: [
+                Icon(
+                  Icons.shopping_cart,
+                  size: 20,
+                ),
+                Positioned(
+                  left: 8.0,
+                  bottom: 6.0,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.red,
+                    radius: 8,
+                    child: Obx(
+                      () => Text(
+                        '${controller.productsCart.length}',
+                        style: TextStyle(fontSize: 12, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            onPressed: () => null,
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CartView(),
+              ),
+            ),
           ),
           IconButton(icon: Icon(Icons.more_vert), onPressed: () {})
         ],
@@ -31,7 +57,8 @@ class HomeView extends StatelessWidget {
           future: DefaultAssetBundle.of(context)
               .loadString("assets/data/products.json"),
           builder: (ctx, snap) {
-            List<dynamic> productList = json.decode(snap.data.toString());
+            List<dynamic> productList =
+                List.from(json.decode(snap.data.toString()));
             return ListView.builder(
               itemBuilder: (ctx, i) {
                 if (!snap.hasData) {
@@ -47,7 +74,8 @@ class HomeView extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ProductView(
-                          img: 'assets/${productList[i]["image"]}',
+                          id: productList[i]["id"],
+                          image: 'assets/${productList[i]["image"]}',
                           name: productList[i]["name"],
                           price: productList[i]["price"],
                           score: productList[i]["score"],
@@ -55,7 +83,8 @@ class HomeView extends StatelessWidget {
                       ),
                     ),
                     child: ProductWidget(
-                      img: 'assets/${productList[i]["image"]}',
+                      id: productList[i]["id"],
+                      image: 'assets/${productList[i]["image"]}',
                       name: productList[i]["name"],
                       price: productList[i]["price"],
                       score: productList[i]["score"],

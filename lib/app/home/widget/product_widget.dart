@@ -5,14 +5,14 @@ class ProductWidget extends StatelessWidget {
   final String? name;
   final double? price;
   final int? score;
-  final String? img;
+  final String? image;
 
   ProductWidget({
     this.id,
     @required this.name,
     @required this.price,
     @required this.score,
-    @required this.img,
+    @required this.image,
   });
 
   @override
@@ -31,7 +31,7 @@ class ProductWidget extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(left: 5),
               child: Image.asset(
-                img!,
+                image!,
                 height: 120,
                 width: 120,
               ),

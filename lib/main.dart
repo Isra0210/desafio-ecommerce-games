@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:games/app/controller/controller.dart';
 import 'package:games/app/home/home_view.dart';
+import 'package:get/get.dart';
 
 void main() {
+  Get.put(Controller());
   runApp(MyApp());
 }
 
