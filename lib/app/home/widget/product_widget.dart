@@ -39,6 +39,7 @@ class ProductWidget extends StatelessWidget {
             Container(
               width: MediaQuery.of(context).size.width * 0.5,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 20.0),
@@ -70,6 +71,7 @@ class ProductWidget extends StatelessWidget {
                             Icon(
                               Icons.star,
                               size: 20,
+                              color: Colors.orange,
                             ),
                             Text('${score!}'),
                           ],
