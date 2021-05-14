@@ -57,10 +57,9 @@ class ProductView extends GetView<Controller> {
           ),
         ],
       ),
-      body: Container(
-        padding: const EdgeInsets.only(top: 10.0),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: SingleChildScrollView(
           child: Column(
             children: [
               Container(
@@ -70,7 +69,7 @@ class ProductView extends GetView<Controller> {
                 height: 250,
               )),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
                   name!,
                   style: TextStyle(fontSize: 22),
@@ -81,7 +80,7 @@ class ProductView extends GetView<Controller> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      padding: EdgeInsets.only(top: 30.0),
+                      padding: EdgeInsets.only(top: 10.0),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: Row(
@@ -168,11 +167,17 @@ class ProductView extends GetView<Controller> {
                                         "name": name,
                                         "image": image,
                                         "score": score,
-                                        "price": price,
+                                        "price": controller
+                                            .amount(controller.quantity.value,
+                                                price!)
+                                            .toStringAsFixed(2),
                                         "quantity": controller.quantity.value,
                                       });
                                       controller.quantity.value = 0;
-                                      Navigator.pop(context);
+                                      Navigator.pop(
+                                        context,
+                                        controller.quantity.value = 0,
+                                      );
                                     }
                                   : null,
                               child: Padding(
